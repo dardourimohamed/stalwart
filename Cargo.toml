@@ -72,3 +72,6 @@ incremental = false
 debug-assertions = false
 overflow-checks = false
 rpath = false
+
+[patch.crates-io]
+rust-s3 = { git = "https://github.com/dardourimohamed/rust-s3", branch = "fix-get-object-range-signing" }
