@@ -32,12 +32,8 @@ RUN \
 # ~2.28 which stays compatible with Debian 11 / RHEL 8. Revisit this pin if
 # Zig upstream stabilizes a backwards-compatible default or if Stalwart drops
 # its hard C deps.
-RUN \
-    ZIG_VERSION=0.13.0 && \
-    ARCH=$(uname -m) && \
-    curl --retry 10 --retry-delay 3 -fsSL "https://github.com/ziglang/zig/releases/download/${ZIG_VERSION}/zig-linux-${ARCH}-${ZIG_VERSION}.tar.xz" -o /tmp/zig.tar.xz && \
-    tar -J -x -C /usr/local -f /tmp/zig.tar.xz && \
-    ln -s "/usr/local/zig-linux-${ARCH}-${ZIG_VERSION}/zig" /usr/local/bin/zig && \
+COPY zig-cache/zig/ /usr/local/zig/
+RUN ln -s /usr/local/zig/zig /usr/local/bin/zig && \
     zig version
 # Install cargo-binstall
 RUN curl --retry 5 -fL --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
